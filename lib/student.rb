@@ -29,6 +29,11 @@ class Student
     DB[:conn].execute(sql)
   end
 
+  def update
+    sql = "UPDATE songs SET name = ?, album = ? WHERE id = ?"
+    DB[:conn].execute(sql, self.name, self.album, self.id)
+  end
+
   def save
     if self.id
     self.update
@@ -40,6 +45,7 @@ class Student
     DB[:conn].execute(sql, self.name, self.grade)
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students") [0][0]
   end
+end
 
   def self.create(name, grade)
     student = Student.new(name, grade)
@@ -67,6 +73,6 @@ end
     end.first
   end
 
-  
+
 
 end
