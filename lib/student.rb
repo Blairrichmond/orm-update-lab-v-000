@@ -30,6 +30,9 @@ class Student
   end
 
   def save
+    if self.id
+    self.update
+  else
     sql = <<-SQL
       INSERT INTO students (name, grade)
       VALUES (?, ?)
@@ -45,11 +48,11 @@ class Student
   end
 
   def self.new_from_db(row)
-  new_student = self.new  
+  new_student = self.new
   new_student.id = row[0]
   new_student.name =  row[1]
   new_student.grade = row[2]
-  new_student  
+  new_student
 end
 
   def self.find_by_name
@@ -63,5 +66,7 @@ end
       self.new_from_db
     end.first
   end
+
+  
 
 end
